@@ -10,13 +10,14 @@ export default function Form({ signUp, signUpUser, signInUser }) {
     event.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    // const firstName = firstNameRef.current.value;
-    // const lastName = lastNameRef.current.value;
     if(!signUpUser){
       signInUser(email, password);
       return 1;
+    }else {
+      const firstName = firstNameRef.current.value;
+      const lastName = lastNameRef.current.value;
+      signUpUser(firstName,lastName, email, password);
     }
-    signUpUser( email, password);
   };
 
   return (
