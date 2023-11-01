@@ -1,7 +1,7 @@
 import React from 'react'
 import Form from '../../components/form'
 
-const signIn = () => {
+const SignIn = () => {
   return (
     <div>
         <Form></Form>
@@ -9,4 +9,4 @@ const signIn = () => {
   )
 }
 
-export default signIn
+export default SignIn
