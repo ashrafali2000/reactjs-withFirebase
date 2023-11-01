@@ -1,14 +1,24 @@
 import React from 'react'
 import Form from '../../components/form'
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from '../../firebase/conFig';
+import { ref, set  } from "firebase/database";
+import { auth, database} from '../../firebase/conFig';
 
 const SignUp = () => {
-  const signUpUser = ( email, password) => {
+  const signUpUser =  (firstName,lastName, email, password) => {
+    const fullName = firstName+lastName
     createUserWithEmailAndPassword(auth,email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-     console.log(user)
+    //  console.log(user)
+    alert("User Sucessfully created")
+      set(ref(database, `users/${user.uid}`), {
+        userName:fullName,
+        email:email,
+        password:password
+      });
+
+    
     })
     .catch((error) => {
       const errorCode = error.code;
