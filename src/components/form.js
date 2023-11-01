@@ -1,12 +1,23 @@
 import { useRef } from "react";
 
-export default function Form({ signUp }) {
+export default function Form({ signUp, signUpUser, signInUser }) {
   const firstNameRef = useRef();
   const lastNameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
 
-  const signUpHandler = () => {};
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+    // const firstName = firstNameRef.current.value;
+    // const lastName = lastNameRef.current.value;
+    if(!signUpUser){
+      signInUser(email, password);
+      return 1;
+    }
+    signUpUser( email, password);
+  };
 
   return (
     <>
@@ -23,7 +34,7 @@ export default function Form({ signUp }) {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form className="space-y-6" onSubmit={onSubmitHandler}>
             {signUp ? (
               <div>
                 <div>
