@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import Form from "../../components/form";
 import {
   auth,
@@ -12,15 +12,19 @@ import {
   get,
   child,
 } from "../../firebase/conFig";
+import { AuthContext } from "../../context/authCtx";
 
 const SignIn = () => {
+  const userData = useContext(AuthContext);
+  const dataTake =  userData.signInHandler;
+
   const signInUser = (email, password) => {
     signInWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
         const user = userCredential.user;
         if (user) {
           alert("SignIn sucessfull");
-
+          dataTake(user.uid);
           // FIRST WAY
           // onValue(ref(database, `users/${user.uid}`), (data) => {
           //   console.log("data====>", data.val());
