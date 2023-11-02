@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { getAuth} from "firebase/auth";
-import { getDatabase} from "firebase/database";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword} from "firebase/auth";
+import { getDatabase, onValue, ref, set, get, child} from "firebase/database";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -20,4 +20,4 @@ const auth = getAuth(app);
  const dbRealTime = getDatabase(app);
  const dbFireStore = getFirestore(app);
 
- export { auth, dbRealTime,doc, setDoc, getDoc, dbFireStore}
+ export { auth, dbRealTime,doc, setDoc, getDoc, dbFireStore, signInWithEmailAndPassword,  onValue, ref, set, get, child, createUserWithEmailAndPassword}

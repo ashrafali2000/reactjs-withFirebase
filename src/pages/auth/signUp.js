@@ -1,10 +1,6 @@
 import React from 'react'
 import Form from '../../components/form'
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { ref, set  } from "firebase/database";
-// import { doc, setDoc } from "firebase/firestore"; 
-
-import { auth, dbRealTime, dbFireStore, setDoc,doc} from '../../firebase/conFig';
+import { auth, dbRealTime, dbFireStore, setDoc,doc,createUserWithEmailAndPassword, ref, set } from '../../firebase/conFig';
 
 const SignUp = () => {
   const signUpUser =  (firstName,lastName, email, password) => {
