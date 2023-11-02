@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword} from "firebase/auth";
 import { getDatabase, onValue, ref, set, get, child} from "firebase/database";
-import { getFirestore, doc, setDoc, getDoc,getDocs, collection, query, where } from "firebase/firestore";
+import { getFirestore, doc, setDoc, getDoc,getDocs, collection, query, where, updateDoc, arrayUnion  } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBdnhGetpEZXSKmZbK4Lc5lz9zYRo4p26A",
@@ -20,4 +20,4 @@ const auth = getAuth(app);
  const dbRealTime = getDatabase(app);
  const dbFireStore = getFirestore(app);
 
- export { auth, dbRealTime,doc, setDoc, getDoc, getDocs, dbFireStore, signInWithEmailAndPassword,  onValue, ref, set, get, child, createUserWithEmailAndPassword, collection, query, where}
+ export { auth, dbRealTime,doc, setDoc, getDoc, getDocs, dbFireStore, signInWithEmailAndPassword,  onValue, ref, set, get, child, createUserWithEmailAndPassword, collection, query, where, updateDoc, arrayUnion }
