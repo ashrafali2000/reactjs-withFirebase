@@ -24,7 +24,8 @@ const SignUp = () => {
       await setDoc(doc(dbFireStore, "users", user.uid), {
         name: fullName,
         email: email,
-        password: password
+        password: password,
+        blogs:[]
       });
     
     })
