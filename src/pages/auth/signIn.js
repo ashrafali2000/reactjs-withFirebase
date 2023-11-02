@@ -2,11 +2,11 @@ import React from "react";
 import Form from "../../components/form";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { onValue, ref, get, child } from "firebase/database";
-import { auth, database } from "../../firebase/conFig";
+import { auth, dbRealTime, getDoc, dbFireStore, doc } from "../../firebase/conFig";
 const SignIn = () => {
   const signInUser = (email, password) => {
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         const user = userCredential.user;
         // FIRST WAY
         // onValue(ref(database, `users/${user.uid}`), (data) => {
@@ -22,21 +22,20 @@ const SignIn = () => {
         // });
 
         //  FIRST WAY OF  (GET METHOD)
-      get(ref(database,`users/${user.uid}`))
-      .then((data) => {
-        if (data.exists()) {
-          alert("User Sucessfully login")
-          // console.log(data.val());
-        } else {
-          console.log("No data available");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+        // get(ref(dbRealTime,`users/${user.uid}`))
+        // .then((data) => {
+        //   if (data.exists()) {
+        //     alert("User Sucessfully login")
+        //     // console.log(data.val());
+        //   } else {
+        //     console.log("No data available");
+        //   }
+        // })
+        // .catch((error) => {
+        //   console.error(error);
+        // });
 
-
-//  SECONDE WAY OF  (GET METHOD)
+        //  SECONDE WAY OF  (GET METHOD)
         // const dbRef = ref(database);
         // get(child(dbRef, `users/${user.uid}`))
         //   .then((data) => {
@@ -50,13 +49,20 @@ const SignIn = () => {
         //     console.error(error);
         //   });
 
+        // FIRSTORE GET DATA
 
+        const userRef = doc(dbFireStore, "users", user.uid);
+        const userData = await getDoc(userRef);
+        if (userData.exists()) {
+          console.log("user data exist:", userData.data());
+        } else {
+          console.log("No such document!");
+        }
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        // console.log(errorMessage);
-        alert("Invalid email address or password")
+        alert("Invalid email address or password");
       });
   };
   return (

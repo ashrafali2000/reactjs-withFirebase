@@ -2,22 +2,34 @@ import React from 'react'
 import Form from '../../components/form'
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, set  } from "firebase/database";
-import { auth, database} from '../../firebase/conFig';
+// import { doc, setDoc } from "firebase/firestore"; 
+
+import { auth, dbRealTime, dbFireStore, setDoc,doc} from '../../firebase/conFig';
 
 const SignUp = () => {
   const signUpUser =  (firstName,lastName, email, password) => {
     const fullName = firstName+lastName
     createUserWithEmailAndPassword(auth,email, password)
-    .then((userCredential) => {
+    .then( async (userCredential) => {
       const user = userCredential.user;
     //  console.log(user)
     alert("User Sucessfully created")
-      set(ref(database, `users/${user.uid}`), {
-        userName:fullName,
-        email:email,
-        password:password
-      });
 
+    //(i)  REAL TIME DATABASE WITH FIRBASE
+      // set(ref(dbRealTime, `users/${user.uid}`), {
+      //   userName:fullName,
+      //   email:email,
+      //   password:password
+      // });
+
+
+      //(ii) FIRE STORE DATABASE
+      // SET Data
+      await setDoc(doc(dbFireStore, "users", user.uid), {
+        name: fullName,
+        email: email,
+        password: password
+      });
     
     })
     .catch((error) => {
