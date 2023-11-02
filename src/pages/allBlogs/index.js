@@ -1,22 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { doc, getDoc, getDocs, dbFireStore, where, collection, query } from "../../firebase/conFig";
-
+import { Card } from 'antd';
 const AllBlogs = () => {
-  (async function foo() {
+const [blogs, setBlogs] = useState([]);
+let allBlogs = [];
 
+useEffect(() => {
+  async function func() {
     const q = query(collection(dbFireStore, "users"));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      const userBlogs = doc.data().blogs;
-      console.log(" =====> ", userBlogs);
+      const userBlogs = doc.data().blogs[2];
+      allBlogs.push(userBlogs);
     });
-  })();
+    setBlogs(allBlogs)
+    console.log(" =====> ", allBlogs);
+  }
+  func()
+},[])
 
   return (
-    <div>
+    <div className="bg-gray-200">
       <div>AllBlogs</div>
-      <div></div>
+      <div >
+       {blogs.map(p  => <Card key={Math.random()} className="w-96 md:w-[600px] bg-white-200">
+      <h1> {p.title}</h1>
+      <p> {p.description}</p>
+       
+        </Card>)}
+      </div>
     </div>
   );
 };
