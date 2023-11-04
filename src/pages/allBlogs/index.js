@@ -6,17 +6,19 @@ const [blogs, setBlogs] = useState([]);
 let allBlogs = [];
 
 useEffect(() => {
-  async function func() {
+
+  (async () =>{
     const q = query(collection(dbFireStore, "users"));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      const userBlogs = doc.data().blogs[2];
+      const userBlogs = doc.data().blogs[0];
+      console.log(userBlogs)
       allBlogs.push(userBlogs);
     });
     setBlogs(allBlogs)
     console.log(" =====> ", allBlogs);
-  }
-  func()
+  })()
+
 },[])
 
   return (
