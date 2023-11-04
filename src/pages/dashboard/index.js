@@ -94,7 +94,11 @@ const Dashboard = () => {
           </div>
         </form>
       </div>
-<div className="flex flex-col items-center gap-10">
+      <div className="flex justify-center items-center mt-8">
+
+      <h1 className="font-bold text-lg text-start">My Blogs</h1>
+      </div>
+<div className="flex flex-col items-center gap-10 mt-8">
 
       {userBlog.map(b =>  { return  <Card key={Math.random()} className="w-3/5 shadow-xl shadow-gray-600/40">
       <div className="w-60 flex gap-4 justify-start items-center"><Avatar size={64} icon={<UserOutlined />} />

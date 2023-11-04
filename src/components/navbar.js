@@ -58,6 +58,14 @@ export default function Navbar() {
                   </div>
                 </div>
               </div>
+              <div className='hidden sm:flex sm:gap-3'>
+                <Link className=' flex mt-3 sm:w-[120px] md:w-[140px] w-full justify-center rounded-md bg-indigo-600 px-2 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' to={"/signup"}>
+                  Sign up
+                </Link>
+                <Link className='flex mt-3 sm:w-[120px] md:w-[140px] w-full justify-center rounded-md bg-green-600 px-2 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' to={"/signin"}>
+                  Log in
+                </Link>
+              </div>
               {/* <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <button
                   type="button"
@@ -144,6 +152,16 @@ export default function Navbar() {
                   {item.name}
                 </Disclosure.Button>
               ))}
+                <div className='flex gap-2'>
+                  <Link className='flex mt-3  w-2/6 justify-center rounded-md bg-indigo-600 px-2 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' to={"/signup"}>
+                  Sign up
+                  </Link>
+        
+                  <Link className='flex mt-3  w-2/6 justify-center rounded-md bg-green-600 px-2 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' to={"/signin"}>
+                  Log in
+                  </Link>
+           
+              </div>
             </div>
           </Disclosure.Panel>
         </>
