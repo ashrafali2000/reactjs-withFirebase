@@ -1,6 +1,6 @@
 import React from 'react'
 import Form from '../../components/form'
-import { auth, dbRealTime, dbFireStore, setDoc,doc,createUserWithEmailAndPassword, ref, set } from '../../firebase/conFig';
+import { auth, dbRealTime, dbFireStore, setDoc,doc,createUserWithEmailAndPassword, ref, set, storage, uploadBytesResumable  } from '../../firebase/conFig';
 
 const SignUp = () => {
   const signUpUser =  (firstName,lastName, email, password) => {
@@ -28,6 +28,16 @@ const SignUp = () => {
         blogs:[]
       });
     
+//  UPLOAD FILE
+// const storageRef = ref(storage, 'images/mountains.jpg');
+// const uploadTask = uploadBytesResumable(storageRef, file);
+// uploadTask.pause();
+// uploadTask.resume();
+// uploadTask.cancel();
+
+
+
+
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -35,6 +45,13 @@ const SignUp = () => {
     console.log(errorMessage);
     });
   }
+
+
+
+
+
+
+
 
   return (
     <div>
