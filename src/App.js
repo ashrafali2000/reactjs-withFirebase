@@ -16,7 +16,13 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Navbar />}>
+        <Route path="/" element={
+          <AuthContext.Provider value={{
+            isLoggedIn
+          }}>
+            <Navbar />
+          </AuthContext.Provider>
+        }>
           <Route path="/signup" element={<SignUp />} />
 
           <Route

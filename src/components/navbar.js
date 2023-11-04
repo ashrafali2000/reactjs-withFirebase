@@ -2,6 +2,8 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Outlet , Link} from 'react-router-dom'
+import { useContext } from 'react'
+import { AuthContext } from '../context/authCtx'
 
 const navigation = [
   { name: 'Dashboard', href: '/', current: true },
@@ -13,6 +15,8 @@ function classNames(...classes) {
 }
 
 export default function Navbar() {
+  const checkIsLoggedIn = useContext(AuthContext);
+  const userLoggedIn = checkIsLoggedIn.isLoggedIn;
   return (
     <div>
     <Disclosure as="nav" className="bg-gray-800">
@@ -58,15 +62,7 @@ export default function Navbar() {
                   </div>
                 </div>
               </div>
-              <div className='hidden sm:flex sm:gap-3'>
-                <Link className=' flex mt-3 sm:w-[120px] md:w-[140px] w-full justify-center rounded-md bg-indigo-600 px-2 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' to={"/signup"}>
-                  Sign up
-                </Link>
-                <Link className='flex mt-3 sm:w-[120px] md:w-[140px] w-full justify-center rounded-md bg-green-600 px-2 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' to={"/signin"}>
-                  Log in
-                </Link>
-              </div>
-              {/* <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+             {userLoggedIn ? <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <button
                   type="button"
                   className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -74,10 +70,10 @@ export default function Navbar() {
                   <span className="absolute -inset-1.5" />
                   <span className="sr-only">View notifications</span>
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button> */}
+                </button>
 
                 {/* Profile dropdown */}
-                {/* <Menu as="div" className="relative ml-3">
+                <Menu as="div" className="relative ml-3">
                   <div>
                     <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="absolute -inset-1.5" />
@@ -122,7 +118,7 @@ export default function Navbar() {
                       <Menu.Item>
                         {({ active }) => (
                           <a
-                          href="#"
+                            href="/signin"
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
                             Sign out
@@ -132,7 +128,17 @@ export default function Navbar() {
                     </Menu.Items>
                   </Transition>
                 </Menu>
-              </div> */}
+              </div>
+                          
+                           :  <div className='hidden sm:flex sm:gap-3'>
+                              <Link className=' flex mt-3 sm:w-[120px] md:w-[140px] w-full justify-center rounded-md bg-indigo-600 px-2 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' to={"/signup"}>
+                                Sign up
+                              </Link>
+                              <Link className='flex mt-3 sm:w-[120px] md:w-[140px] w-full justify-center rounded-md bg-green-600 px-2 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' to={"/signin"}>
+                                Log in
+                              </Link>
+                            </div> 
+                          }
             </div>
           </div>
 

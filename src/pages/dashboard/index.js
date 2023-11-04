@@ -25,16 +25,18 @@ const Dashboard = () => {
 
   const addBlogHandler = async (event) => {
     event.preventDefault();
-    const title = titleRef.current.value;
-    const description = descriptionRef.current.value;
-    const blog = {
-      title: title,
-      description: description,
-    };
-
-    await updateDoc(doc(dbFireStore, "users", userId), {
-      blogs: arrayUnion(blog),
-    });
+    if(userId){
+      const title = titleRef.current.value;
+      const description = descriptionRef.current.value;
+      const blog = {
+        title: title,
+        description: description,
+      };
+  
+      await updateDoc(doc(dbFireStore, "users", userId), {
+        blogs: arrayUnion(blog),
+      });
+    }
 
     // JUST FOR SINGLE DATA ADD
     // await setDoc(doc(dbFireStore, "users", "U7jU6YbNmecozzC6DpLyY1lhXzQ2"), {
@@ -42,22 +44,28 @@ const Dashboard = () => {
       // });
       
     };
-    
-    useEffect(() => {
-      async function foo() {
-        const userRef = doc(dbFireStore, "users", userId);
-        const docUser = await getDoc(userRef);
-    
-        if (docUser.exists()) {
-          setUserBlog(docUser.data().blogs);
-          setUserDetail(docUser.data());
-        } else {
-          // docSnap.data() will be undefined in this case
-          console.log("No such document!");
+   
+     useEffect(() => {
+        async function foo() {
+          if(userId){
+            const userRef = doc(dbFireStore, "users", userId);
+            const docUser = await getDoc(userRef);
+        
+            if (docUser.exists()) {
+              setUserBlog(docUser.data().blogs);
+              setUserDetail(docUser.data());
+            } else {
+              // docSnap.data() will be undefined in this case
+              console.log("No such document!");
+            }
+            return true;
+          }
+          return false
         }
-      }
-      foo()
-    }, []);
+        foo()
+      }, []);
+
+    
     return (
       <div>
       <div className="bg-white p-6 font-bold">Dashboard</div>
@@ -100,12 +108,12 @@ const Dashboard = () => {
       </div>
 <div className="flex flex-col items-center gap-10 mt-8">
 
-      {userBlog.map(b =>  { return  <Card key={Math.random()} className="w-3/5 shadow-xl shadow-gray-600/40">
+       {userBlog[0] ? userBlog.map(b =>  { return  <Card key={Math.random()} className="w-3/5 shadow-xl shadow-gray-600/40">
       <div className="w-60 flex gap-4 justify-start items-center"><Avatar size={64} icon={<UserOutlined />} />
       <span>{userDetail.name}</span></div>
          <h1 className="font-bold text-lg">{b.title}</h1>
          <p>{b.description}</p>
-          </Card>})}
+          </Card>}) : <div> Please Login First</div>}
 </div>
     </div>
   );
